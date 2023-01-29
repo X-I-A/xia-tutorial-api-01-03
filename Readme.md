@@ -20,93 +20,70 @@ Already finish the reading of
 * [Tutorial API 01-02](https://github.com/X-I-A/xia-tutorial-api-01-02)
 
 
+## Introduction
+
+In this tutorial, you will see a REST based solution for treating three main challenge of API call:
+1. No over fetching: You won't get more data than you need
+2. No under fetching: You could get data from several data model at one time
+3. Progressive loading: You could get the data part by part in asynchronous mode
+
 ## Start with example
 
 Please clone and deployed the example code (see [installation guide](tutorial/install.md) for instruction).
 
 Or just visiting the already deployed [online version](https://xia-tutorial-api-01-03-srspyyjtqa-ew.a.run.app/order)
 
-Here is a 40-second-video to show briefly how the new data model impacts the editor and api endpoints:
+### Modifications:
 
+Based on the code of [Tutorial API 01-02](https://github.com/X-I-A/xia-tutorial-api-01-02), 
+we just do a simple modification:
+* models/purchase_order.py:
+    * Adding a `CompressStringField` at External Data Model (field `Customer.description`).
 
-## Introduction
-
-In this tutorial, you will see a REST based solution for treating three main challenge of API call:
-1. No over fetching: You won't get more data than you need
-2. No under fetching: You could get data from several data model from one time
-3. Asynchronous loading: You could get the data part by part in asynchronous mode
-
+CompressStringField is designed to hold a big string in compressed format. Unless is requested, the field will show
+its compressed bytes content on base64 format.
 
 ## No over fetching
 
 We have defined a data model but not all field is required for a specified application. So it is possible to add a 
 catalog object in API call to tell the server which fields are needed.
 
+With the following catalog object, only po_number and order_status are fetched
+```
+&lazy=false&catalog={"po_number": null, "order_status": null}
+```
+
 ## No under fetching
 
-We have data model relationships
+There is no need to launch several API call to get data from several data models. 
+The data models must have predefined relationship, which is represented by `ExternalField`
 
-## Let's start !
-### Data to API in 2 minutes
-
-Please clone and deployed the example code (see [installation guide](tutorial/install.md) for instruction).
-
-Or just visiting the already deployed [online version](https://xia-tutorial-api-01-srspyyjtqa-ew.a.run.app/order)
-
-After it is done, three services are deployed:
-
-* /doc: Auto-generated OpenAPI document
-
-[online version](https://xia-tutorial-api-01-srspyyjtqa-ew.a.run.app/doc)
-
-![screen shot of openapi specification](tutorial/openapi.PNG)
-
-* /api: API Endpoint
-
-![screen shot of API root](tutorial/api.PNG)
-
-* /: Frontend Editor
-
-![screen shot of editor](tutorial/editor.PNG)
-
-Here is a 30-second-video to show briefly how editor works:
-
-https://user-images.githubusercontent.com/49595269/212530070-17cf7f9e-c75f-43b8-ab51-4317dccb1812.mp4
-
-
-### Define your own data model
-
-In order to use your own data model, you just need to focus on application logic.
-
-1. Adapting data models in models directory
-2. Importing defined models into config.py
-3. Defining resource mapping in config.py. 
+With the following catalog object, data from Customer is loaded into PurchaseOrder data model
 ```
-    RESOURCE_MAPPING = { "order": PurchaseOrder }
+&lazy=false&catalog={"po_number": null, "order_status": null, "customer_detail": {"id": null, "description": null}}
 ```
-For the above example, if you want to manipulate Python data model PurchaseOrder, you could use:
-* /api/order for api call
-* /order for web editing
 
-### Other files:
+You could control the load behavior of each field. We set `customer_detail.description` to true in order to prevent 
+decompressing description field. If the value is null, the global lazy setting will be used.
+```
+&lazy=false&catalog={"po_number": null, "order_status": null, "customer_detail": {"id": null, "description": true}}
+```
 
-Only 6 other files relates to the application. Other files are related to tutorial
+## Progressive loading
 
-* compile.py: Used to compile static files, including html file from defined data models
-* Dockerfile: build container
-* main.py: Flask application main program
-* requirements.txt: pip package dependencies 
-* requirement-xia.txt: pip package dependencies of xia scope
-* VERSION: Deploy version, Single source of truth of version number in CI/CD process
+Under fetching is sometimes useful to load progressively a web page. When the External Field is at lazy mode,
+the field will provide all the information to load the data in a separate API call. 
 
-Also keeping two empty directories:
-* static: Holding static files
-* templates: Holding html templates
+Here is the configuration for a progressive loading:
+```
+&lazy=true&catalog={"po_number": null, "order_status": null, "customer_detail": {"id": null, "description": false}}
+```
 
-And also a js library:
-* /static/js/redoc: Parsing OpenApi schema to webpage, based on [Redocly](https://github.com/Redocly/redoc)
+Once got the instruction, it is possible to:
+* Loading directly the data (Progressive loading)
+* Loading the data only after user's input, expanding tree, for example (Interactive loading)
 
-That is all what you need to make it work
+Frontend development is not the main concern of this tutorial.
 
 ### Next Step: Making your data persistent
 
@@ -119,8 +96,3 @@ X-I-A is capable of working with any database. Please follow the next tutorial:
 * Tutorial 05: Applying rate limits // Payment
 * Tutorial 06: Making independent microservice work as a complex application 
 * Tutorial 07: Examples of complex application
-
-### Going deeper on data model topic
-* [Tutorial 01-01](https://github.com/X-I-A/xia-tutorial-api-01-01): Simple Data Model (Documents / Fields / Actions / EmbeddedDocuments)
-* Tutorial 01-02: Advanced Data Models (ExternalDocument)
-* Tutorial 01-03: Avoiding over fetching and under fetching (Lazy mode and Catalog Object)
