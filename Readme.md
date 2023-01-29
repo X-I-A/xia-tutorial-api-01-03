@@ -1,4 +1,4 @@
-# X-I-A API Tutorial - 01
+# X-I-A API Tutorial - 01-03: Lazy mode and Catalog Object 
 ## Getting Started
 
 Welcome to XIA API tutorial!
@@ -11,6 +11,40 @@ This framework is microservice based in order to get a fast learning curve for d
 Each tutorial is ended by a series number like 01-02-03. The longer the series is, the more advanced topic is discussed.
 It will be better to finish basic tutorial before going through advanced ones. Each tutorial has example code. 
 Installation instruction could be found at tutorial/install.md.
+
+## Prerequisites
+
+Already finish the reading of
+* [Tutorial API 01](https://github.com/X-I-A/xia-tutorial-api-01)
+* [Tutorial API 01-01](https://github.com/X-I-A/xia-tutorial-api-01-01)
+* [Tutorial API 01-02](https://github.com/X-I-A/xia-tutorial-api-01-02)
+
+
+## Start with example
+
+Please clone and deployed the example code (see [installation guide](tutorial/install.md) for instruction).
+
+Or just visiting the already deployed [online version](https://xia-tutorial-api-01-03-srspyyjtqa-ew.a.run.app/order)
+
+Here is a 40-second-video to show briefly how the new data model impacts the editor and api endpoints:
+
+
+## Introduction
+
+In this tutorial, you will see a REST based solution for treating three main challenge of API call:
+1. No over fetching: You won't get more data than you need
+2. No under fetching: You could get data from several data model from one time
+3. Asynchronous loading: You could get the data part by part in asynchronous mode
+
+
+## No over fetching
+
+We have defined a data model but not all field is required for a specified application. So it is possible to add a 
+catalog object in API call to tell the server which fields are needed.
+
+## No under fetching
+
+We have data model relationships
 
 ## Let's start !
 ### Data to API in 2 minutes
