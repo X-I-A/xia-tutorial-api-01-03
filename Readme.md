@@ -33,6 +33,10 @@ Please clone and deployed the example code (see [installation guide](tutorial/in
 
 Or just visiting the already deployed [online version](https://xia-tutorial-api-01-03-srspyyjtqa-ew.a.run.app/order)
 
+Here is a 1-minute video to show the different solutions
+
+https://user-images.githubusercontent.com/49595269/215358202-1f36d3cb-e9a0-48ab-9e45-6d55ac2ee04a.mp4
+
 ### Modifications:
 
 Based on the code of [Tutorial API 01-02](https://github.com/X-I-A/xia-tutorial-api-01-02), 
@@ -79,11 +83,10 @@ Here is the configuration for a progressive loading:
 &lazy=true&catalog={"po_number": null, "order_status": null, "customer_detail": {"id": null, "description": false}}
 ```
 
-Once got the instruction, it is possible to:
+Based on the given information, it is possible to:
 * Loading directly the data (Progressive loading)
-* Loading the data only after user's input, expanding tree, for example (Interactive loading)
+* Loading the data only after user's input. For example, after expanding the tree node (Interactive loading)
 
-Frontend development is not the main concern of this tutorial.
 
 ### Next Step: Making your data persistent
 
