@@ -37,6 +37,8 @@ Here is a 1-minute video to show the different solutions
 
 https://user-images.githubusercontent.com/49595269/215358202-1f36d3cb-e9a0-48ab-9e45-6d55ac2ee04a.mp4
 
+Editor maps the call to /api endpoint. /api has much more functionalities and is the real backend entry point.
+
 ### Modifications:
 
 Based on the code of [Tutorial API 01-02](https://github.com/X-I-A/xia-tutorial-api-01-02), 
