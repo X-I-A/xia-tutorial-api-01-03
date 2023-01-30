@@ -35,7 +35,7 @@ Or just visiting the already deployed [online version](https://xia-tutorial-api-
 
 Here is a 1-minute video to show the different solutions
 
-
+https://user-images.githubusercontent.com/49595269/215569310-ef084765-a2bf-4ed2-9def-a91b740187f8.mp4
 
 Editor maps the call to /api endpoint. /api has much more functionalities and is the real backend entry point.
 
@@ -56,7 +56,7 @@ catalog object in API call to tell the server which fields are needed.
 
 With the following catalog object, only po_number and order_status are fetched
 ```
-&_lazy=false&_catalog={"po_number": null, "order_status": null}
+&_catalog={"po_number": null, "order_status": null}
 ```
 
 ## No under fetching
