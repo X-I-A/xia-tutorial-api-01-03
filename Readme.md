@@ -70,7 +70,7 @@ With the following catalog object, data from Customer is loaded into PurchaseOrd
 ```
 
 You could control the load behavior of each field. We set `customer_detail.description` to true in order to prevent 
-decompressing description field. If the value is null, the global lazy setting will be used.
+decompressing description field. If the value is null, the global lazy setting = `false` will be used.
 ```
 &_lazy=false&_catalog={"po_number": null, "order_status": null, "customer_detail": {"id": null, "description": true}}
 ```
