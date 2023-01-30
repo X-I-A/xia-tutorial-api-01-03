@@ -112,4 +112,4 @@ X-I-A is capable of working with any database. Please follow the next tutorial:
 * Tutorial 04: Authorization Management
 * Tutorial 05: Applying rate limits // Payment
 * Tutorial 06: Making independent microservice work as a complex application 
-* Tutorial 07: Analytic Models
+* Tutorial 07: Examples of complex application
